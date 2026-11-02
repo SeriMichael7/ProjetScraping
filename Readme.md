@@ -1,12 +1,4 @@
-# Application de Scraping Web (Console)
 
-Application console interactive en Python permettant d'automatiser l'extraction (web scraping) d'informations sur des produits (noms et prix) depuis une page web, avec affichage en console et sauvegarde au format CSV et dans une base de données SQLite.
-
----
-
-## 📁 Architecture du projet (MVC)
-
-Le projet est structuré selon le patron de conception **Modèle-Vue-Contrôleur (MVC)** :
 
 ```text
 Scraping_web/
@@ -33,30 +25,12 @@ Scraping_web/
 
 ---
 
-## ⚙️ Prérequis et Installation
 
-1. **Python 3.10+** et **Google Chrome** installés sur votre machine.
-2. Cloner ou ouvrir le dossier du projet dans votre terminal :
-   ```bash
-   cd Scraping_web
-   ```
-3. Activer l'environnement virtuel (si présent) :
-   - Sur Windows (PowerShell) :
-     ```powershell
-     .\venv\Scripts\Activate.ps1
-     ```
-   - Sur Linux / macOS :
-     ```bash
-     source venv/bin/activate
-     ```
-4. Installer les dépendances :
-   ```bash
-   pip install -r requirements.txt
    ```
 
 ---
 
-## 🚀 Utilisation de l'Application Console
+ Utilisation de l'Application Console
 
 Pour démarrer l'application console, exécutez la commande suivante à la racine du projet :
 
@@ -64,7 +38,7 @@ Pour démarrer l'application console, exécutez la commande suivante à la racin
 python main.py
 ```
 
-### 📋 Menu interactif :
+Menu interactif :
 
 Au lancement, le menu suivant s'affiche :
 
@@ -80,7 +54,7 @@ Au lancement, le menu suivant s'affiche :
 ==================================================
 ```
 
-### 💡 Description des options :
+ Description des options :
 - **Option 1** : Lance Selenium pour récupérer la page web, extrait les noms et prix des produits avec BeautifulSoup, affiche les résultats dans la console et les sauvegarde dans `data/produits.csv`.
 - **Option 2** : Réaffiche immédiatement les produits extraits lors du dernier scraping sans avoir à recharger la page web.
 - **Option 3** : Insère les produits récupérés dans la base de données locale `data/produits.db` (SQLite).
