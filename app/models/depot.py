@@ -40,9 +40,21 @@ def sauvegarder_sqlite(produits, chemin_db):
 
 
 def lire_sqlite(chemin_db):
+    if not os.path.exists(chemin_db):
+        return []
     conn = sqlite3.connect(chemin_db)
     try:
         cur = conn.cursor()
+        cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS produits (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nom TEXT NOT NULL,
+                prix TEXT,
+                date_scraping TEXT DEFAULT CURRENT_TIMESTAMP
+            )
+            """
+        )
         cur.execute("SELECT id, nom, prix, date_scraping FROM produits")
         return cur.fetchall()
     finally:
