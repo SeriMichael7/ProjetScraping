@@ -1,7 +1,12 @@
 from config import URL, FICHIER_CSV, FICHIER_DB
 from app.scraper.scraping_web import recuperer_html
 from app.scraper.parsing import extraire_produits
-from app.models.depot import sauvegarder_csv, sauvegarder_sqlite, lire_sqlite
+from app.models.depot import (
+    sauvegarder_csv,
+    sauvegarder_sqlite,
+    lire_sqlite,
+    charger_csv,
+)
 from app.views.affichage import (
     afficher_produits,
     afficher_menu,
@@ -18,7 +23,7 @@ def lancer_scraping():
 
 
 def lancer_application_console():
-    produits_en_memoire = []
+    produits_en_memoire = charger_csv(FICHIER_CSV)
 
     while True:
         afficher_menu()
@@ -31,12 +36,14 @@ def lancer_application_console():
                 print(f"\n[SUCCÈS] Scraping terminé ! Données enregistrées dans '{FICHIER_CSV}'.")
             except Exception as e:
                 print(f"\n[ERREUR] Une erreur est survenue lors du scraping : {e}")
+            input("\nAppuyez sur Entrée pour revenir au menu...")
 
         elif choix == "2":
             if not produits_en_memoire:
                 print("\n[INFO] Aucun produit en mémoire. Lancez d'abord le scraping (option 1).")
             else:
                 afficher_produits(produits_en_memoire)
+            input("\nAppuyez sur Entrée pour revenir au menu...")
 
         elif choix == "3":
             if not produits_en_memoire:
@@ -47,6 +54,7 @@ def lancer_application_console():
                     print(f"\n[SUCCÈS] {len(produits_en_memoire)} produits sauvegardés dans '{FICHIER_DB}'.")
                 except Exception as e:
                     print(f"\n[ERREUR] Erreur lors de la sauvegarde SQLite : {e}")
+            input("\nAppuyez sur Entrée pour revenir au menu...")
 
         elif choix == "4":
             print(f"\n[INFO] Lecture des données depuis '{FICHIER_DB}'...")
@@ -55,6 +63,7 @@ def lancer_application_console():
                 afficher_donnees_sqlite(donnees)
             except Exception as e:
                 print(f"\n[ERREUR] Erreur lors de la lecture SQLite : {e}")
+            input("\nAppuyez sur Entrée pour revenir au menu...")
 
         elif choix == "5":
             print("\nFermeture de l'application console. Au revoir !")
@@ -62,4 +71,6 @@ def lancer_application_console():
 
         else:
             print("\n[ATTENTION] Choix invalide. Veuillez entrer un chiffre entre 1 et 5.")
+            input("\nAppuyez sur Entrée pour revenir au menu...")
+
 

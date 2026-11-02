@@ -1,6 +1,7 @@
 import csv
 import os
 import sqlite3
+from app.models.produit import Produit
 
 
 def sauvegarder_csv(produits, chemin):
@@ -10,6 +11,21 @@ def sauvegarder_csv(produits, chemin):
         writer.writerow(["nom", "prix"])
         for p in produits:
             writer.writerow([p.nom, p.prix])
+
+
+def charger_csv(chemin):
+    if not os.path.exists(chemin):
+        return []
+    produits = []
+    with open(chemin, "r", encoding="utf-8") as f:
+        reader = csv.reader(f)
+        lignes = list(reader)
+        if len(lignes) > 1:
+            for ligne in lignes[1:]:
+                if len(ligne) >= 2:
+                    produits.append(Produit(ligne[0], ligne[1]))
+    return produits
+
 
 
 def sauvegarder_sqlite(produits, chemin_db):
